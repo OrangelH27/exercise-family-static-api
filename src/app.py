@@ -6,13 +6,12 @@ from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from datastructures import FamilyStructure
-#from models import Person
+
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 CORS(app)
 
-# create the jackson family object
 jackson_family = FamilyStructure("Jackson")
 
 Sebastian = {
@@ -41,12 +40,12 @@ jackson_family.add_member(Aitor)
 jackson_family.add_member(Albert)
 
 
-# Handle/serialize errors like a JSON object
+
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
-# generate sitemap with all your endpoints
+
 @app.route('/')
 def sitemap():
     return generate_sitemap(app)
@@ -85,16 +84,6 @@ def add_member():
 
 
 
-print("Miembros actuales:", jackson_family.get_all_members())
-
-
-print("Obtener miembro por ID:", jackson_family.get_member(Albert["id"]))
-
-print("Eliminar miembro:", jackson_family.delete_member(Albert["id"]))
-
-
-print("Miembros restantes:", jackson_family.get_all_members())
-# this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
     app.run(host='0.0.0.0', port=PORT, debug=True)

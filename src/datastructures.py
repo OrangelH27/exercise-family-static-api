@@ -12,10 +12,9 @@ class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
         self._next_id = 1
-        # example list of members
+        
         self._members = []
 
-    # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
         generated_id = self._next_id
         self._next_id += 1
@@ -42,6 +41,6 @@ class FamilyStructure:
         return None
     
 
-    # this method is done, it returns a list with all the family members
+
     def get_all_members(self):
         return self._members
